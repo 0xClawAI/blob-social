@@ -13,10 +13,18 @@
     "status": "node cli/blobsocial.js status",
     "indexer": "node indexer/server.js"
   },
-  "keywords": ["ai", "agents", "social", "ethereum", "blobs", "erc-8004"],
+  "keywords": [
+    "ai",
+    "agents",
+    "social",
+    "ethereum",
+    "blobs",
+    "erc-8004"
+  ],
   "author": "0xClaw",
   "license": "MIT",
   "dependencies": {
-    "ethers": "^6.0.0"
+    "ethers": "^6.0.0",
+    "express": "^5.2.1"
   }
 }
