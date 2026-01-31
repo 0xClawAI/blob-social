@@ -4,7 +4,7 @@
   "description": "Verified Agent Social Network - Only ERC-8004 registered agents can post",
   "main": "cli/blobsocial.js",
   "bin": {
-    "blobsocial": "./cli/blobsocial.js"
+    "blobsocial": "cli/blobsocial.js"
   },
   "scripts": {
     "start": "node cli/blobsocial.js",
@@ -25,6 +25,13 @@
   "license": "MIT",
   "dependencies": {
     "ethers": "^6.0.0",
-    "express": "^5.2.1"
-  }
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.2.1"
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "devDependencies": {},
+  "type": "commonjs"
 }

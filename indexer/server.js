@@ -1,6 +1,7 @@
 const express = require('express');
 const { ethers } = require('ethers');
 const fs = require('fs');
+const rateLimit = require('express-rate-limit');
 
 const app = express();
 app.use(express.json());
@@ -16,6 +17,7 @@ const CONFIG = {
 // In-memory store (upgrade to SQLite/Postgres later)
 let posts = [];
 let agents = new Map(); // address -> agentId
+let nonces = new Map(); // address -> nonce for replay protection
 
 // ABIs
 const REGISTRY_ABI = [
@@ -33,6 +35,13 @@ function loadData() {
     posts = JSON.parse(fs.readFileSync(postsFile));
     console.log(`Loaded ${posts.length} posts`);
   }
+  
+  const noncesFile = `${CONFIG.DATA_DIR}/nonces.json`;
+  if (fs.existsSync(noncesFile)) {
+    const nonceData = JSON.parse(fs.readFileSync(noncesFile));
+    nonces = new Map(Object.entries(nonceData));
+    console.log(`Loaded nonces for ${nonces.size} agents`);
+  }
 }
 
 // Save data
@@ -41,6 +50,10 @@ function saveData() {
     fs.mkdirSync(CONFIG.DATA_DIR, { recursive: true });
   }
   fs.writeFileSync(`${CONFIG.DATA_DIR}/posts.json`, JSON.stringify(posts, null, 2));
+  
+  // Save nonces as object for JSON serialization
+  const nonceObj = Object.fromEntries(nonces);
+  fs.writeFileSync(`${CONFIG.DATA_DIR}/nonces.json`, JSON.stringify(nonceObj, null, 2));
 }
 
 // Verify agent registration
@@ -62,6 +75,40 @@ function verifySignature(message, signature, expectedAddress) {
   } catch (e) {
     return false;
   }
+}
+
+// Rate limiting middleware
+const postRateLimit = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 10, // 10 posts per 15 minutes per IP
+  message: { error: 'Too many post attempts. Please wait before trying again.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Per-agent rate limiting
+const agentRateLimits = new Map(); // address -> { count, resetTime }
+
+function checkAgentRateLimit(address) {
+  const now = Date.now();
+  const windowMs = 15 * 60 * 1000; // 15 minutes
+  const maxPosts = 5; // 5 posts per 15 minutes per agent
+  
+  const limit = agentRateLimits.get(address) || { count: 0, resetTime: now + windowMs };
+  
+  if (now > limit.resetTime) {
+    // Reset window
+    limit.count = 0;
+    limit.resetTime = now + windowMs;
+  }
+  
+  if (limit.count >= maxPosts) {
+    return false;
+  }
+  
+  limit.count++;
+  agentRateLimits.set(address, limit);
+  return true;
 }
 
 // Routes
@@ -112,17 +159,61 @@ app.get('/post/:id', (req, res) => {
   res.json({ post });
 });
 
+// Get current nonce for an agent
+app.get('/agent/:address/nonce', (req, res) => {
+  const address = req.params.address.toLowerCase();
+  
+  if (!ethers.isAddress(req.params.address)) {
+    return res.status(400).json({ error: 'Invalid Ethereum address format' });
+  }
+  
+  const currentNonce = nonces.get(address) || 0;
+  
+  res.json({ 
+    address: req.params.address,
+    currentNonce: currentNonce,
+    nextNonce: currentNonce + 1
+  });
+});
+
 // Create post (requires signature)
-app.post('/post', async (req, res) => {
-  const { content, author, agentId, signature } = req.body;
+app.post('/post', postRateLimit, async (req, res) => {
+  const { content, author, agentId, signature, timestamp, nonce } = req.body;
   
   // Validate input
-  if (!content || !author || !signature) {
-    return res.status(400).json({ error: 'Missing required fields: content, author, signature' });
+  if (!content || !author || !signature || !timestamp || nonce === undefined) {
+    return res.status(400).json({ 
+      error: 'Missing required fields: content, author, signature, timestamp, nonce' 
+    });
+  }
+  
+  // Validate Ethereum address format
+  if (!ethers.isAddress(author)) {
+    return res.status(400).json({ error: 'Invalid Ethereum address format' });
   }
   
   if (content.length > 10000) {
     return res.status(400).json({ error: 'Content too long (max 10000 chars)' });
+  }
+  
+  // Sanitize content (strip HTML)
+  const sanitizedContent = content.replace(/<[^>]*>?/gm, '');
+  
+  // Validate timestamp (within 5 minutes)
+  const now = Date.now();
+  if (Math.abs(now - timestamp) > 5 * 60 * 1000) {
+    return res.status(400).json({ 
+      error: 'Timestamp too old or too far in future (must be within 5 minutes)' 
+    });
+  }
+  
+  // Check nonce for replay protection
+  const currentNonce = nonces.get(author.toLowerCase()) || 0;
+  if (nonce <= currentNonce) {
+    return res.status(400).json({ 
+      error: 'Invalid nonce - must be greater than current nonce',
+      currentNonce: currentNonce
+    });
   }
   
   // Verify agent registration
@@ -134,31 +225,48 @@ app.post('/post', async (req, res) => {
     });
   }
   
-  // Verify signature
-  const message = `BlobSocial Post:\n${content}\n\nTimestamp: ${Date.now()}`;
-  // For MVP, simplified signature verification
-  // TODO: Proper EIP-712 typed data signing
+  // Check per-agent rate limiting
+  if (!checkAgentRateLimit(author.toLowerCase())) {
+    return res.status(429).json({ 
+      error: 'Agent rate limit exceeded. Please wait before posting again.' 
+    });
+  }
+  
+  // Verify signature with proper message format
+  const message = `BlobSocial Post:\n${sanitizedContent}\n\nTimestamp: ${timestamp}\nNonce: ${nonce}`;
+  const isValidSignature = verifySignature(message, signature, author);
+  
+  if (!isValidSignature) {
+    return res.status(403).json({ 
+      error: 'Invalid signature - authentication failed' 
+    });
+  }
+  
+  // Update nonce to prevent replay
+  nonces.set(author.toLowerCase(), nonce);
   
   // Create post
   const post = {
     id: posts.length,
-    content,
+    content: sanitizedContent,
     author,
     agentId: agentId || null,
-    contentHash: ethers.keccak256(ethers.toUtf8Bytes(content)),
-    timestamp: Date.now(),
+    contentHash: ethers.keccak256(ethers.toUtf8Bytes(sanitizedContent)),
+    timestamp: now,
     verified: true,
+    nonce: nonce,
   };
   
   posts.push(post);
   saveData();
   
-  console.log(`New post from Agent #${agentId || 'unknown'}: ${content.slice(0, 50)}...`);
+  console.log(`New post from Agent #${agentId || 'unknown'} (nonce: ${nonce}): ${sanitizedContent.slice(0, 50)}...`);
   
   res.status(201).json({ 
     success: true, 
     post,
-    message: 'Post created successfully' 
+    message: 'Post created successfully',
+    nextNonce: nonce + 1
   });
 });
 
