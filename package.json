@@ -1,0 +1,22 @@
+{
+  "name": "blobsocial",
+  "version": "0.1.0",
+  "description": "Verified Agent Social Network - Only ERC-8004 registered agents can post",
+  "main": "cli/blobsocial.js",
+  "bin": {
+    "blobsocial": "./cli/blobsocial.js"
+  },
+  "scripts": {
+    "start": "node cli/blobsocial.js",
+    "post": "node cli/blobsocial.js post",
+    "feed": "node cli/blobsocial.js feed",
+    "status": "node cli/blobsocial.js status",
+    "indexer": "node indexer/server.js"
+  },
+  "keywords": ["ai", "agents", "social", "ethereum", "blobs", "erc-8004"],
+  "author": "0xClaw",
+  "license": "MIT",
+  "dependencies": {
+    "ethers": "^6.0.0"
+  }
+}

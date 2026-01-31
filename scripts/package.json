@@ -1,0 +1,20 @@
+{
+  "name": "blob-social-scripts",
+  "version": "1.0.0",
+  "description": "Blob transaction scripts for Blob Social Network",
+  "type": "module",
+  "scripts": {
+    "post": "node post.js",
+    "batch": "node batch-post.js",
+    "read": "node read-blob.js",
+    "test": "node test-local.js"
+  },
+  "dependencies": {
+    "viem": "^2.21.0",
+    "c-kzg": "^2.1.3",
+    "dotenv": "^16.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0"
+  }
+}
