@@ -9,43 +9,233 @@
     "percentage": 33
   },
   "milestones": [
-    { "id": "M1", "name": "Core MVP Working", "status": "done", "tasks": ["T-001", "T-002", "T-003", "T-004"] },
-    { "id": "M2", "name": "Persistent Storage & Reliability", "status": "in-progress", "tasks": ["T-005", "T-006", "T-007"] },
-    { "id": "M3", "name": "Social Features", "status": "todo", "tasks": ["T-008", "T-009", "T-010"] },
-    { "id": "M4", "name": "Frontend Complete", "status": "todo", "tasks": ["T-011", "T-012", "T-013"] },
-    { "id": "M5", "name": "Blob Integration & Decentralization", "status": "todo", "tasks": ["T-014", "T-015", "T-016"] },
-    { "id": "M6", "name": "Production Readiness", "status": "todo", "tasks": ["T-017", "T-018"] }
+    {
+      "id": "M1",
+      "name": "Core MVP Working",
+      "status": "done",
+      "tasks": [
+        "T-001",
+        "T-002",
+        "T-003",
+        "T-004"
+      ]
+    },
+    {
+      "id": "M2",
+      "name": "Persistent Storage & Reliability",
+      "status": "in-progress",
+      "tasks": [
+        "T-005",
+        "T-006",
+        "T-007"
+      ]
+    },
+    {
+      "id": "M3",
+      "name": "Social Features",
+      "status": "todo",
+      "tasks": [
+        "T-008",
+        "T-009",
+        "T-010"
+      ]
+    },
+    {
+      "id": "M4",
+      "name": "Frontend Complete",
+      "status": "todo",
+      "tasks": [
+        "T-011",
+        "T-012",
+        "T-013"
+      ]
+    },
+    {
+      "id": "M5",
+      "name": "Blob Integration & Decentralization",
+      "status": "todo",
+      "tasks": [
+        "T-014",
+        "T-015",
+        "T-016"
+      ]
+    },
+    {
+      "id": "M6",
+      "name": "Production Readiness",
+      "status": "todo",
+      "tasks": [
+        "T-017",
+        "T-018"
+      ]
+    }
   ],
   "phases": [
-    { "id": 1, "name": "Core MVP", "status": "done" },
-    { "id": 2, "name": "Persistent Storage & Reliability", "status": "in-progress" },
-    { "id": 3, "name": "Social Features", "status": "todo" },
-    { "id": 4, "name": "Frontend Complete", "status": "todo" },
-    { "id": 5, "name": "Blob Integration & Decentralization", "status": "todo" },
-    { "id": 6, "name": "Production Readiness", "status": "todo" }
+    {
+      "id": 1,
+      "name": "Core MVP",
+      "status": "done"
+    },
+    {
+      "id": 2,
+      "name": "Persistent Storage & Reliability",
+      "status": "in-progress"
+    },
+    {
+      "id": 3,
+      "name": "Social Features",
+      "status": "todo"
+    },
+    {
+      "id": 4,
+      "name": "Frontend Complete",
+      "status": "todo"
+    },
+    {
+      "id": 5,
+      "name": "Blob Integration & Decentralization",
+      "status": "todo"
+    },
+    {
+      "id": 6,
+      "name": "Production Readiness",
+      "status": "todo"
+    }
   ],
-  "tasks": {
-    "T-001": { "name": "Smart Contract — BlobSocialVerified", "type": "code", "status": "done", "milestone": "M1" },
-    "T-002": { "name": "Indexer API — Post & Feed", "type": "code", "status": "done", "milestone": "M1" },
-    "T-003": { "name": "CLI Client", "type": "code", "status": "done", "milestone": "M1" },
-    "T-004": { "name": "Frontend — Basic UI", "type": "code", "status": "done", "milestone": "M1" },
-    "T-005": { "name": "Security Hardening", "type": "code", "status": "done", "milestone": "M2" },
-    "T-006": { "name": "Documentation", "type": "docs", "status": "done", "milestone": "M2" },
-    "T-007": { "name": "SQLite Persistent Storage", "type": "code", "status": "todo", "milestone": "M2" },
-    "T-008": { "name": "Replies & Threads", "type": "code", "status": "todo", "milestone": "M3" },
-    "T-009": { "name": "Agent Profiles", "type": "code", "status": "todo", "milestone": "M3" },
-    "T-010": { "name": "Tags & Search", "type": "code", "status": "todo", "milestone": "M3" },
-    "T-011": { "name": "Agent Profile Page", "type": "code", "status": "todo", "milestone": "M4" },
-    "T-012": { "name": "Follow UI & Social Graph", "type": "code", "status": "todo", "milestone": "M4" },
-    "T-013": { "name": "Thread View & Replies UI", "type": "code", "status": "todo", "milestone": "M4" },
-    "T-014": { "name": "L1 Blob Submission", "type": "code", "status": "todo", "milestone": "M5" },
-    "T-015": { "name": "Block Watcher & Blob Indexing", "type": "code", "status": "todo", "milestone": "M5" },
-    "T-016": { "name": "Archiver Network (Basic)", "type": "code", "status": "todo", "milestone": "M5" },
-    "T-017": { "name": "CI/CD & Monitoring", "type": "ops", "status": "todo", "milestone": "M6" },
-    "T-018": { "name": "Mainnet Deployment", "type": "ops", "status": "todo", "milestone": "M6" }
-  },
+  "tasks": [
+    {
+      "id": "T-001",
+      "name": "Smart Contract — BlobSocialVerified",
+      "type": "code",
+      "status": "done",
+      "milestone": "M1"
+    },
+    {
+      "id": "T-002",
+      "name": "Indexer API — Post & Feed",
+      "type": "code",
+      "status": "done",
+      "milestone": "M1"
+    },
+    {
+      "id": "T-003",
+      "name": "CLI Client",
+      "type": "code",
+      "status": "done",
+      "milestone": "M1"
+    },
+    {
+      "id": "T-004",
+      "name": "Frontend — Basic UI",
+      "type": "code",
+      "status": "done",
+      "milestone": "M1"
+    },
+    {
+      "id": "T-005",
+      "name": "Security Hardening",
+      "type": "code",
+      "status": "done",
+      "milestone": "M2"
+    },
+    {
+      "id": "T-006",
+      "name": "Documentation",
+      "type": "docs",
+      "status": "done",
+      "milestone": "M2"
+    },
+    {
+      "id": "T-007",
+      "name": "SQLite Persistent Storage",
+      "type": "code",
+      "status": "todo",
+      "milestone": "M2"
+    },
+    {
+      "id": "T-008",
+      "name": "Replies & Threads",
+      "type": "code",
+      "status": "todo",
+      "milestone": "M3"
+    },
+    {
+      "id": "T-009",
+      "name": "Agent Profiles",
+      "type": "code",
+      "status": "todo",
+      "milestone": "M3"
+    },
+    {
+      "id": "T-010",
+      "name": "Tags & Search",
+      "type": "code",
+      "status": "todo",
+      "milestone": "M3"
+    },
+    {
+      "id": "T-011",
+      "name": "Agent Profile Page",
+      "type": "code",
+      "status": "todo",
+      "milestone": "M4"
+    },
+    {
+      "id": "T-012",
+      "name": "Follow UI & Social Graph",
+      "type": "code",
+      "status": "todo",
+      "milestone": "M4"
+    },
+    {
+      "id": "T-013",
+      "name": "Thread View & Replies UI",
+      "type": "code",
+      "status": "todo",
+      "milestone": "M4"
+    },
+    {
+      "id": "T-014",
+      "name": "L1 Blob Submission",
+      "type": "code",
+      "status": "todo",
+      "milestone": "M5"
+    },
+    {
+      "id": "T-015",
+      "name": "Block Watcher & Blob Indexing",
+      "type": "code",
+      "status": "todo",
+      "milestone": "M5"
+    },
+    {
+      "id": "T-016",
+      "name": "Archiver Network (Basic)",
+      "type": "code",
+      "status": "todo",
+      "milestone": "M5"
+    },
+    {
+      "id": "T-017",
+      "name": "CI/CD & Monitoring",
+      "type": "ops",
+      "status": "todo",
+      "milestone": "M6"
+    },
+    {
+      "id": "T-018",
+      "name": "Mainnet Deployment",
+      "type": "ops",
+      "status": "todo",
+      "milestone": "M6"
+    }
+  ],
   "workers": [],
   "activity": [
-    { "timestamp": "2026-02-09T10:30:00-08:00", "event": "project migrated to orchestrator format", "task": null }
+    {
+      "timestamp": "2026-02-09T10:30:00-08:00",
+      "event": "project migrated to orchestrator format",
+      "task": null
+    }
   ]
 }
