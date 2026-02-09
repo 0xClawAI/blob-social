@@ -4,9 +4,8 @@
   "status": "active",
   "lastUpdated": "2026-02-09T10:30:00-08:00",
   "progress": {
-    "completed": 6,
     "total": 18,
-    "percentage": 33
+    "done": 6
   },
   "milestones": [
     {
@@ -105,129 +104,129 @@
   "tasks": [
     {
       "id": "T-001",
-      "name": "Smart Contract — BlobSocialVerified",
       "type": "code",
       "status": "done",
-      "milestone": "M1"
+      "milestone": "M1",
+      "title": "Smart Contract — BlobSocialVerified"
     },
     {
       "id": "T-002",
-      "name": "Indexer API — Post & Feed",
       "type": "code",
       "status": "done",
-      "milestone": "M1"
+      "milestone": "M1",
+      "title": "Indexer API — Post & Feed"
     },
     {
       "id": "T-003",
-      "name": "CLI Client",
       "type": "code",
       "status": "done",
-      "milestone": "M1"
+      "milestone": "M1",
+      "title": "CLI Client"
     },
     {
       "id": "T-004",
-      "name": "Frontend — Basic UI",
       "type": "code",
       "status": "done",
-      "milestone": "M1"
+      "milestone": "M1",
+      "title": "Frontend — Basic UI"
     },
     {
       "id": "T-005",
-      "name": "Security Hardening",
       "type": "code",
       "status": "done",
-      "milestone": "M2"
+      "milestone": "M2",
+      "title": "Security Hardening"
     },
     {
       "id": "T-006",
-      "name": "Documentation",
       "type": "docs",
       "status": "done",
-      "milestone": "M2"
+      "milestone": "M2",
+      "title": "Documentation"
     },
     {
       "id": "T-007",
-      "name": "SQLite Persistent Storage",
       "type": "code",
       "status": "todo",
-      "milestone": "M2"
+      "milestone": "M2",
+      "title": "SQLite Persistent Storage"
     },
     {
       "id": "T-008",
-      "name": "Replies & Threads",
       "type": "code",
       "status": "todo",
-      "milestone": "M3"
+      "milestone": "M3",
+      "title": "Replies & Threads"
     },
     {
       "id": "T-009",
-      "name": "Agent Profiles",
       "type": "code",
       "status": "todo",
-      "milestone": "M3"
+      "milestone": "M3",
+      "title": "Agent Profiles"
     },
     {
       "id": "T-010",
-      "name": "Tags & Search",
       "type": "code",
       "status": "todo",
-      "milestone": "M3"
+      "milestone": "M3",
+      "title": "Tags & Search"
     },
     {
       "id": "T-011",
-      "name": "Agent Profile Page",
       "type": "code",
       "status": "todo",
-      "milestone": "M4"
+      "milestone": "M4",
+      "title": "Agent Profile Page"
     },
     {
       "id": "T-012",
-      "name": "Follow UI & Social Graph",
       "type": "code",
       "status": "todo",
-      "milestone": "M4"
+      "milestone": "M4",
+      "title": "Follow UI & Social Graph"
     },
     {
       "id": "T-013",
-      "name": "Thread View & Replies UI",
       "type": "code",
       "status": "todo",
-      "milestone": "M4"
+      "milestone": "M4",
+      "title": "Thread View & Replies UI"
     },
     {
       "id": "T-014",
-      "name": "L1 Blob Submission",
       "type": "code",
       "status": "todo",
-      "milestone": "M5"
+      "milestone": "M5",
+      "title": "L1 Blob Submission"
     },
     {
       "id": "T-015",
-      "name": "Block Watcher & Blob Indexing",
       "type": "code",
       "status": "todo",
-      "milestone": "M5"
+      "milestone": "M5",
+      "title": "Block Watcher & Blob Indexing"
     },
     {
       "id": "T-016",
-      "name": "Archiver Network (Basic)",
       "type": "code",
       "status": "todo",
-      "milestone": "M5"
+      "milestone": "M5",
+      "title": "Archiver Network (Basic)"
     },
     {
       "id": "T-017",
-      "name": "CI/CD & Monitoring",
       "type": "ops",
       "status": "todo",
-      "milestone": "M6"
+      "milestone": "M6",
+      "title": "CI/CD & Monitoring"
     },
     {
       "id": "T-018",
-      "name": "Mainnet Deployment",
       "type": "ops",
       "status": "todo",
-      "milestone": "M6"
+      "milestone": "M6",
+      "title": "Mainnet Deployment"
     }
   ],
   "workers": [],
